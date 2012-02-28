@@ -1,0 +1,22 @@
+{
+    "name": "FYP", 
+    "version": "0.0.1", 
+    "description": "", 
+    "author": "Jake Verbaten <raynos2@gmail.com>",
+    "repository": "git://github.com/Raynos/fyp.git",
+    "main": "..", 
+    "engines": { 
+        "node": "0.6.x" 
+    },
+    "scripts": {
+        "test": "make test"  
+    },
+    "dependencies": {
+        "express": "",
+        "ncore": ""
+    },
+    "devDependencies": {
+        "mocha": "0.13.0"
+    },
+    "private": true
+}
