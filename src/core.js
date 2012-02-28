@@ -1,6 +1,6 @@
-var Core = Object.create(require("../../lib/core")).constructor(),
+var Core = Object.create(require("ncore")).constructor(),
     moduleLoader = Core.use("moduleLoader", 
-        require("../../modules/moduleLoader")),
+        require("ncore/modules/moduleLoader")),
     path = require("path")
 
 moduleLoader.load({
@@ -9,6 +9,8 @@ moduleLoader.load({
     dependencies: require("./dependency.json"),
     callback: init
 })
+
+module.exports = Core
 
 function init(err) {
     if (err) {

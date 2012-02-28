@@ -1,0 +1,17 @@
+{
+    "./domains": {
+        "dataSources": ["./data-sources"]
+    },
+    "./io/config.js": {
+        "express": "./io/express.js"
+    },
+    "./io/express.js": {
+        "server": "./io/server.js",
+        "middlewares": ["./io/middleware"]
+    },
+    "./io/controllers": {
+        "express": "./io/express.js",
+        "domain": "./domains",
+        "view": "./io/views"
+    }
+}
