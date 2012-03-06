@@ -13,11 +13,13 @@
     },
     "dependencies": {
         "express": "git://github.com/visionmedia/express.git",
-        "ncore": "1.1.3"
+        "pd": "0.6.2",
+        "mongodb": "0.9.9-4",
+        "ncore": "1.3.0"
     },
     "devDependencies": {
         "mocha": "0.13.0",
-        "should": "0.5.1"
+        "should": "0.6.0"
     },
     "private": true
 }

@@ -13,7 +13,7 @@ module.exports = function makeSuite(name, callback) {
 
         before(function (done) {
             core.use("testsuite", {
-                boot: function boot() {
+                setup: function setup() {
                     this.express.on("creation", function (app) {
                         _app = app
                     })

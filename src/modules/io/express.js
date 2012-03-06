@@ -1,10 +1,10 @@
 var express = require("express")
 
 module.exports = {
-    boot: function boot() {
+    setup: function () {
         this.server.on("creation", this.createExpress)
     },
-    createExpress: function createExpress(server) {
+    createExpress: function (server) {
         var app = express()
         this.emit("creation", app)
         server.on("request", app)

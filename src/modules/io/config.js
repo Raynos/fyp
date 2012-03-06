@@ -2,24 +2,32 @@ var path = require("path"),
     express = require("express")
 
 module.exports = {
-    boot: function boot() {
+    setup: function () {
         this.express.on("creation", this.attachConfiguration)
     },
-    attachConfiguration: function attachConfiguration(app) {
-        app.configure(configure)
+    attachConfiguration: function (app) {
+        this.app = app
+        app.configure(this.configure)
         app.configure("development", developmentConfigure)
+    },
+    configure: function () {
+        var app = this.app
+        app.set('views', path.join(__dirname, "../../public/views"))
+        app.set('view engine', 'jade')
+        app.use(express.favicon())
+        app.use(express.static(path.join(__dirname, "../../public")))
+        app.use(express.bodyParser())
+        app.use(express.methodOverride())
+        Object.keys(this.middlewares).forEach(attachMiddleware, this)
+        app.use(app.router)
+
+        function attachMiddleware(name) {
+            this.app.use(this.middlewares[name].middleware)
+        }
     }
 }
 
-function configure() {
-    this.set('views', path.join(__dirname, "../../public/views"))
-    this.set('view engine', 'jade')
-    this.use(express.favicon())
-    this.use(express.static(path.join(__dirname, "../../public")))
-    this.use(express.bodyParser())
-    this.use(express.methodOverride())
-    this.use(this.router)
-}
+
 
 function developmentConfigure() {
     this.use(express.errorHandler())
