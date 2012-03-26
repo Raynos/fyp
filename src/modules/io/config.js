@@ -30,6 +30,9 @@ module.exports = {
 
 
 function developmentConfigure() {
-    this.use(express.errorHandler())
+    this.use(express.errorHandler({
+        dumpException: true,
+        showStack: true
+    }))
     this.use(express.logger('dev'))
 }

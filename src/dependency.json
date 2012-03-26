@@ -1,7 +1,4 @@
 {
-    "./domains": {
-        "dataSources": ["./data-sources"]
-    },
     "./io/config.js": {
         "express": "./io/express.js",
         "middlewares": ["./io/middleware"]

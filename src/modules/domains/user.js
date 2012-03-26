@@ -1,22 +1,23 @@
-var pd = require("pd")
+var pd = require("pd"),
+    Users = require("mongo-col")("Users")
 
 var GetUser = {
     start: function () {
-        this.data.find({ email: this.user.email }, this.createIfNeeded)
+        Users.findOne({ email: this.user.email }, this.createIfNeeded)
     },
     createIfNeeded: function (err, user) {
         if (err) return this.callback(err)
         if (user === null) {
-            this.data.insert(user, this.get)
+            Users.insert(this.user, (function (err, result) {
+                this.callback(null, user)
+            }).bind(this))
+        } else {
+            this.callback(null, user)    
         }
-        this.callback(null, user)
     }
 }
 
 module.exports = {
-    setup: function () {
-        this.data = this.dataSources.users
-    },
     get: function (user, callback) {
         pd.bindAll({}, GetUser, {
             user: user,
