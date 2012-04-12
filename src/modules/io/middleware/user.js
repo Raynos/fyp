@@ -6,6 +6,7 @@ module.exports = {
         }, storeAndNext)
 
         function storeAndNext(err, user) {
+            console.log("middleware", err, user)
             req.user = user
             next()
         }

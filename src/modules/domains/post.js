@@ -6,6 +6,7 @@ var Posts = require("mongo-col")("Posts"),
 
 var GetPosts = {
     start: function () {
+        console.log("GetPosts::user", this.user)
         Posts.find({
             "user.email": this.user.email
         }).toArray(this.checkForResults)
@@ -106,6 +107,7 @@ function buildRelated(item, cb) {
 
 module.exports = {
     getAll: function (user, callback) {
+        console.log("getAll", arguments)
         pd.bindAll({}, GetPosts, {
             user: user,
             callback: callback
