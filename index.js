@@ -1,1 +1,1 @@
-module.exports = require("./src/core")
+require("./src/core")

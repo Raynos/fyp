@@ -1,8 +1,7 @@
 var path = require("path"),
     child_process = require("child_process"),
     fs = require("fs"),
-    clientModules = path.join(__dirname, "client-modules"),
-    output = path.join(__dirname, "public", "bundle.js")
+    clientModules = path.join(__dirname, "modules")
 
 function readFiles(dir) {
     fs.readdir(dir, function (err, files) {

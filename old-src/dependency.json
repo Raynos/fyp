@@ -1,0 +1,17 @@
+{
+    "./io/config.js": {
+        "express": "./io/express.js",
+        "middlewares": ["./io/middleware"]
+    },
+    "./io/express.js": {
+        "server": "./io/server.js"
+    },
+    "./io/controllers": {
+        "express": "./io/express.js",
+        "domain": "./domains",
+        "view": "./io/views"
+    },
+    "./io/middleware": {
+        "domain": "./domains"
+    }
+}

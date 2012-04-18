@@ -1,0 +1,24 @@
+{
+    "./server/server.js": {
+        "app": "./server/app.js",
+        "dnode": "./server/dnode.js"
+    },
+    "./server/app.js": {
+        "routes": ["./server/routes"],
+        "configure": "./server/configure.js"
+    },
+    "./server/routes": {
+        "domain": "./shared/domains",
+        "view": "./server/views"
+    },
+    "./shared/domains": {
+        "dataSources": ["./shared/dataSources"]
+    },
+    "./client/app.js": {
+        "routes": ["./client/routes"]
+    },
+    "./client/routes": {
+        "domain": "./shared/domains",
+        "view": "./client/views"
+    }
+}

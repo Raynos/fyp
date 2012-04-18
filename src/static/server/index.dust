@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> FYP </title>
+        <link rel="stylesheet" href="/css/fyp.css">
+        <script src="/js/bundle.js"></script>
+    </head>
+    <body>
+        <div id="outer">
+        </div>
+    </body>
+</html>
