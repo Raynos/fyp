@@ -22,10 +22,14 @@ module.exports = {
     setup: function () {
         this.collection = this.dataSources.user.mongo
     },
-    get: function (user, callback) {
-        pd.bindAll({}, GetUser, {
-            user: user,
-            callback: callback
-        }, this).start()
+    updateUser: function (user, callback) {
+        this.collection.update({
+            email: user.email
+        }, {
+            $set: user
+        }, {
+            safe: true,
+            upsert: true
+        }, callback)
     }
 }

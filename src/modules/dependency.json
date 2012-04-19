@@ -4,20 +4,17 @@
         "dnode": "./server/dnode.js"
     },
     "./server/app.js": {
-        "routes": ["./server/routes"],
+        "routes": ["./server/controllers"],
         "configure": "./server/configure.js"
     },
-    "./server/routes": {
+    "./server/controllers": {
         "domain": "./shared/domains",
         "view": "./server/views"
     },
     "./shared/domains": {
         "dataSources": ["./shared/dataSources"]
     },
-    "./client/app.js": {
-        "routes": ["./client/routes"]
-    },
-    "./client/routes": {
+    "./client/controllers": {
         "domain": "./shared/domains",
         "view": "./client/views"
     }

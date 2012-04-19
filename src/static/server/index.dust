@@ -3,10 +3,15 @@
     <head>
         <title> FYP </title>
         <link rel="stylesheet" href="/css/fyp.css">
-        <script src="/js/bundle.js"></script>
     </head>
     <body>
+        <form id='login'>
+            <input name='email' placeholder='email' />
+            <input name='password' placeholder='password' />
+            <input type='submit' class='submit' value='Login' />
+        </form>
         <div id="outer">
         </div>
+        <script src="/js/bundle.js"></script>
     </body>
 </html>

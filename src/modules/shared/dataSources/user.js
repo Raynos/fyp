@@ -1,5 +1,5 @@
 var clientmongo = require("clientmongo")
 
 module.exports = {
-    mongo: clientmongo("Users")
+    mongo: clientmongo("Users", "fyp-db")
 }

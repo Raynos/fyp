@@ -1,18 +1,34 @@
-module.exports = function (uri, callback) {
-    var iframe = document.createElement("iframe")
-    iframe.onload = handleLoad
-    iframe.src = uri
-    iframe.style.display = 'none'
-    document.head.appendChild(iframe)
+var url = require("url")
 
-    function handleLoad() {
-        var uris = [].slice.call(iframe.contentWindow.document.links)
-        uris = uris.map(toString)
+module.exports = function (uri, callback) {
+    var xhr = new XMLHttpRequest
+    xhr.open("GET", "/proxy/" + 
+        encodeURIComponent(uri))
+    xhr.addEventListener("load", extractIntoIframe)
+    xhr.send()
+
+    function extractIntoIframe() {
+        var iframe = document.createElement("iframe")
+        iframe.style.display = 'none'
+        document.head.appendChild(iframe)
+        var doc = iframe.contentDocument
+        doc.open()
+        doc.write(this.responseText)
+        doc.close()
+        var uris = [].slice.call(doc.links).map(toString)
         document.head.removeChild(iframe)
-        cb(null, uris)
+        callback(null, uris)
 
         function toString(node) {
-            return node.href
+            var localHref = url.parse(window.location.href),
+                uriHref = url.parse(uri),
+                nodeHref = url.parse(node.href)
+
+            if (localHref.host === nodeHref.host) {
+                nodeHref.host = uriHref.host
+            }
+
+            return url.format(nodeHref)
         }
     }
 }
