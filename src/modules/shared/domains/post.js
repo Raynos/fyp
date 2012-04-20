@@ -5,9 +5,11 @@ var pd = require("pd"),
 var GetPosts = {
     start: function () {
         console.log("searching for posts", this.user)
-        this.collection.find({
+        var cursor = this.collection.find({
             "user.email": this.user.email
-        }).toArray(this.checkForResults)    
+        })
+        console.log("toArray", cursor)
+        cursor.toArray(this.checkForResults)    
     },
     checkForResults: error(function (err, results) {
         console.log("checkForResults", arguments)
@@ -45,11 +47,7 @@ var GetPosts = {
             if (err) {
                 return callback(err)
             }
-            if (data.summary) {
-                console.log("have summary!")
-            } else {
-                console.log("summary undefined", data)
-            }
+            console.log("transforming")
             callback(null, {
                 googleId: data.id,
                 id: uuid(),
@@ -96,6 +94,8 @@ function error(cb) {
 
     function proxy(err) {
         if (err) {
+            console.log("error occured", err)
+            console.dir(err)
             return this.callback(err)
         }
         return cb.apply(this, arguments)

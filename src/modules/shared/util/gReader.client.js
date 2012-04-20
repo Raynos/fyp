@@ -6,6 +6,7 @@ var dnode = require("dnode"),
     callbackList = []
 
 dnode.connect(function (remote) {
+    console.log("woop remote gReader", remote)
     cached = remote
     callbackList.forEach(function (cb) {
         cb(remote)
