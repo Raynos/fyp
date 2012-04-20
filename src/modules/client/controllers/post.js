@@ -7,9 +7,8 @@ module.exports = {
 
         console.log("init getposts", this.domain)
 
-        this.domain.getPosts(user, function (err, posts) {
-            console.log("posts found", err, posts)
-            window.winnar = posts
+        this.domain.getPosts(user, function () {
+            console.log("should render")
         })
     }
 }

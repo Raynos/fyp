@@ -1,0 +1,13 @@
+.left, .middle, .right {
+    width: 30%;
+    border: 3px solid red;
+}
+
+.middle, .left, .right {
+    float: left;
+    clear: none;
+    height: 700px;
+    overflow: scroll;
+    margin: 20px;
+    display: inline-block;
+}

@@ -16,7 +16,15 @@ var GetPosts = {
         if (results.length !== 0) {
             /*this.data = results
             this.constructRelatedLinks()*/
-             return this.callback(null, results)
+            //return this.callback(null, results)
+            return results.filter(function (post) {
+                return post.forwardLinks.length > 2 &&
+                    post.forwardLinks.length < 10
+                    post.backLinks.length > 2 &&
+                    post.backLinks.length < 10
+            }).forEach(function (post) {
+                this.posts.set(post.uri, post)
+            }, this)
         }
         this.getResults()
     }),
@@ -167,9 +175,9 @@ var GetPosts = {
             return item.uri
         }
     }),
-    finish: error(function (err) {
+    finish: error(function (err, posts) {
         console.log("finished like a boss")
-        this.callback(null, this.data)
+        this.start()
     })
 }
 
@@ -179,6 +187,7 @@ module.exports = pd.extend({}, observable(), {
         this.collection = this.dataSources.post.mongo
         this.reader = this.dataSources.gReader.reader
     },
+    posts: observable(),
     findLinksInPage: function (uri, callback) {
         this.scraper(uri, callback)
     },

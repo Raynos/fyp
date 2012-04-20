@@ -17,7 +17,21 @@
             </div>
             <div>
                 Constructing links
-                <progress type="progress" id="linking"></progress
+                <progress type="progress" id="linking"></progress>
+            </div>
+        </div>
+        <div id="ui">
+            <div class="left">
+                <div class="posts">
+                </div>
+            </div>
+            <div class="middle">
+                <div class="posts">
+                </div>
+            </div>
+            <div class="right">
+                <div class="posts">
+                </div>
             </div>
         </div>
         <script src="/js/bundle.js"></script>
