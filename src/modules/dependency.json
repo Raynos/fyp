@@ -17,5 +17,8 @@
     "./client/controllers": {
         "domain": "./shared/domains",
         "view": "./client/views"
+    },
+    "./client/views": {
+        "domain": "./shared/domains"
     }
 }

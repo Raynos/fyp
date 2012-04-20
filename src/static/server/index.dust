@@ -11,6 +11,14 @@
             <input type='submit' class='submit' value='Login' />
         </form>
         <div id="outer">
+            <div>
+                Getting your data from google reader
+                <progress type="progress" id="greader"></progress>
+            </div>
+            <div>
+                Constructing links
+                <progress type="progress" id="linking"></progress
+            </div>
         </div>
         <script src="/js/bundle.js"></script>
     </body>

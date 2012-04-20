@@ -5,6 +5,8 @@ module.exports = {
         window.posts = this.domain
         var user = store.get("user")
 
+        console.log("init getposts", this.domain)
+
         this.domain.getPosts(user, function (err, posts) {
             console.log("posts found", err, posts)
         })
