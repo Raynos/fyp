@@ -48,18 +48,18 @@ var GetPosts = {
         }, this.constructRelatedLinks)
     }),
     transformGoogleData: function (data, callback) {
-        var uri = data.alternate[0].href
+        var uri = data.alternate[0].href,
+            self = this
 
-        this.findLinksInPage(uri, (function (err, uris) {
+        this.findLinksInPage(uri, function (err, uris) {
             if (err) {
                 return callback(err)
             } else if (uris === null) {
+                updateProgress()
                 return callback(null, null)
             }
-
-            var counter = this.get("greader-progress")
-            counter++
-            this.set("greader-progress", counter)
+            updateProgress()
+            
             callback(null, {
                 googleId: data.id,
                 id: uuid(),
@@ -69,69 +69,95 @@ var GetPosts = {
                 uri: data.alternate[0].href,
                 backLinks: [],
                 forwardLinks: [],
-                user: this.user,
+                user: self.user,
                 uris: uris
             })
-        }).bind(this))
+
+            function updateProgress() {
+                var counter = self.get("greader-progress")
+                counter++
+                self.set("greader-progress", counter)    
+            }
+        })
     },
     constructRelatedLinks: error(function (err, success) {
         console.log("constructing relations")
+        var self = this
         // for each post in g reader
-        after.forEach(this.data, createForwardAndBackwardLinks,
-            this, this.finish)
+        this.set("linking-progress", 0)
+        this.set("linking-max", this.data.length)
+        after.forEach(this.data, function (item, callback) {
+            process.nextTick(function () {
+                createForwardAndBackwardLinks(item, callback)
+            })
+        }, this, this.finish)
 
         function createForwardAndBackwardLinks(item, callback) {
-            var collection = this.collection
-            console.log("looping over links in", item)
+            var collection = self.collection
+            //console.log("looping over links in", item)
+            var linkingMax = self.get("linking-max")
+            linkingMax += item.uris.length
+            self.set("linking-max", linkingMax)
             // for each link in post
-            after.forEach(item.uris, insertForwardLinks, 
-                this, insertBackwardLinks)
+            after.forEach(item.uris, function (uri, key, callback) {
+                process.nextTick(function () {
+                    insertForwardLinks(uri, key, callback)
+                })
+            }, self, insertBackwardLinks)
 
             function insertForwardLinks(uri, key, callback) {
                 // find all posts of that link
-                if (key % 300 === 0) {
-                    /*console.log("updating a collection with the uri", uri,
-                        item.uris.length)*/
-                }
                 // and insert the item.link into the forwardLinks
                 collection.update({
                     uri: uri
                 }, {
                     $addToSet: {
-                        forwardLinks: item.link
+                        forwardLinks: item.uri
                     }
                 }, {
                     multi: true,
                     safe: true
                 // inner loop done
-                }, callback)
+                }, function (err) {
+                    var linkingProgress = self.get("linking-progress")
+                    linkingProgress++
+                    self.set("linking-progress", linkingProgress)
+                    callback(err)
+                })
             }
 
             function insertBackwardLinks() {
-                console.log("done updating ever uri in items.uri", item)
+                //console.log("done updating ever uri in items.uri", item)
                 // find all documents which contain me in forwardLinks
                 collection.find({
                     forwardLinks: item.uri
                 }).toArray(updateItemWithBackwardLinks)
 
                 function updateItemWithBackwardLinks(err, array) {
-                    console.log("found all forwardLinks, now updating")
+                    //console.log("found all forwardLinks, now updating")
                     // map the documents to their links
                     array = array.map(extractUri)
 
                     // add all those links into my backLinks
 
-                    collect.update({
+                    collection.update({
                         uri: item.uri
                     }, {
                         $addToSet: {
-                            backLinks: array
+                            backLinks: { 
+                                $each: array 
+                            }
                         }
                     }, {
                         multi: true,
                         safe: true
                     // outer loop done
-                    }, callback)
+                    }, function (err) {
+                        var linkingProgress = self.get("linking-progress")
+                        linkingProgress++
+                        self.set("linking-progress", linkingProgress)
+                        callback(err)
+                    })
                 }
             }
         // all data is done

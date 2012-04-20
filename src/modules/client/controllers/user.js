@@ -8,7 +8,6 @@ module.exports = {
     setup: function (done) {
         var user = store.get("user")
         if (user) {
-            console.log("found users")
             done()
         }
         var domain = this.domain,

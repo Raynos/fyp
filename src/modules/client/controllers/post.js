@@ -9,6 +9,7 @@ module.exports = {
 
         this.domain.getPosts(user, function (err, posts) {
             console.log("posts found", err, posts)
+            window.winnar = posts
         })
     }
 }

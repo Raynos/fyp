@@ -2,7 +2,6 @@ var pd = require("pd")
 
 var ProgressRenderer = {
     constructor: function () {
-        console.log("observable", this.observable)
         this.observable.on("change", this.handleProgressChange)
     },
     handleProgressChange: function (key, value) {
@@ -25,7 +24,6 @@ module.exports = {
     greaderNode: document.getElementById("greader"),
     linkingNode: document.getElementById("linking"),
     handleDomainChange: function (key, value) {
-        console.log("handleDomainChange", key, value)
         pd.bindAll({}, ProgressRenderer, this, {
             observable: value
         }).constructor()
