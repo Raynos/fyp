@@ -29,6 +29,10 @@ var PostRenderer = {
 
         self.post.date = (new Date(self.post.publishedTime * 1000))
             .toDateString()
+
+        var d = document.createElement("div")
+        d.innerHTML = self.post.title
+        self.post.title = d.textContent
             
         self.open = false
 
@@ -127,12 +131,12 @@ module.exports = {
 
                     var node = titles.filter(function (stuff) {
                         return stuff.title === selfTitle
-                    })[0].el
+                    })[0].el.firstElementChild
 
                     var ev = document.createEvent("Event")
                     ev.initEvent("click", true, true)
                     node.dispatchEvent(ev)
-                    node.scrollIntoView()
+                    node.parentNode.scrollIntoView()
                 }))
     },
     greaderNode: document.getElementById("greader"),
