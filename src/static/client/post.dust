@@ -1,7 +1,7 @@
 <li class="post"> 
     <h2>
         <span class="date">{date}</span>
-        <a href="{uri}">{title}</a>
+        <a href="{uri}">{title|h}</a>
     </h2>
     <div class="content hidden">
         {summary|s}

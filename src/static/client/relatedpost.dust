@@ -1,6 +1,6 @@
 <li class="post"> 
     <h2>
-        <a href="{uri"}>{title}</a>
-        <span class="date">{date}>/span>
+        <a href="{uri"}>{title|s}</a>
+        <span class="date">{date}></span>
     </h2>
 </li>

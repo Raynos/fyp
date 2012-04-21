@@ -53,10 +53,6 @@ a:hover {
     color: #ffffff;
 }
 
-.hidden {
-    display: none;
-}
-
 #title {
     position: absolute;
     top: 0px;
@@ -67,7 +63,29 @@ a:hover {
     color:#333;
 }
 
-#blog {
+#blog li {
+    border-top: 1px solid #958677;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+    VIEW 1
+*/
+
+.view1 #title {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 64px;
+    background-color: #ffffff;
+    color:#333;
+}
+
+.view1 #blog {
     position: absolute;
     top: 64px;
     left: 0px;
@@ -77,7 +95,7 @@ a:hover {
     overflow: scroll;
 }
 
-#links {
+.view1 #links {
     position: absolute;
     top: 64px;
     bottom: 0px;
@@ -85,7 +103,7 @@ a:hover {
     right: 0px;
 }
 
-#backlinks {
+.view1 #backlinksContainer {
     position: absolute;
     display: block;
     top: 0px;
@@ -96,7 +114,7 @@ a:hover {
     margin:0px;
 }
 
-#forwardlinks {
+.view1 #forwardLinksContainer {
     position: absolute;
     display: block;
     top: 50%;
@@ -107,12 +125,7 @@ a:hover {
     margin: 0px;
 }
 
-
-#blog li {
-    border-top: 1px solid #958677;
-}
-
-#linksin {
+.view1 #linksin {
     position: absolute;
     top: 72px;
     left: 60%;
@@ -123,10 +136,77 @@ a:hover {
     background-repeat: no-repeat;
 }
 
-#linksout {
+.view1 #linksout {
     position: absolute;
     bottom: 24px;
     left: 60%;
+    width: 147px;
+    margin-left:-60px;
+    height: 75px;
+    background-image: url('/linksout.png');
+    background-repeat: no-repeat;
+}
+
+.view1 #content, .view1 #related {
+    display: none;
+}
+
+/*
+    VIEW 2 
+*/
+
+.view2 #content {
+    position: absolute;
+    top: 64px;
+    left: 25%;
+    bottom:0px;
+    right: 25%;
+    padding: 20px;
+    overflow-x: auto;
+    overflow-y: scroll;    
+}
+
+.view2 #blog {
+    position: absolute;
+    top: 64px;
+    left: 0px;
+    bottom: 0px;
+    right: 75%;
+    padding: 20px;
+    background-color:#13181a;
+    overflow: scroll;
+}
+
+.view2 #related {
+    position: absolute;
+    top: 64px;
+    left: 75%;
+    bottom: 0px;    
+    right: 0px;
+    padding: 20px;
+    /*background-color:#13181a;*/
+    overflow: scroll;
+}
+
+.view2 #links, .view2 .content {
+    display: none;
+}
+
+.view2 #linksin {
+    position: absolute;
+    top: 72px;
+    left: 75%;
+    width: 147px;
+    margin-left:-112px;
+    height: 75px;
+    background-image: url('/linksin.png');
+    background-repeat: no-repeat;
+}
+
+.view2 #linksout {
+    position: absolute;
+    bottom: 24px;
+    left: 75%;
     width: 147px;
     margin-left:-60px;
     height: 75px;

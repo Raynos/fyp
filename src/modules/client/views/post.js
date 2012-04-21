@@ -43,7 +43,10 @@ var PostRenderer = {
         if (this.open) {
             this.addLinksTo(this.backlinks, this.post.backLinks)
             this.addLinksTo(this.forwardlinks, this.post.forwardLinks)
+            this.addLinksTo(this.related, 
+                [].concat(this.post.backLinks, this.post.forwardLinks))
             var open = By.class("open")
+            this.content.appendChild(fragment(this.post.summary))
             open.classList.add("hidden")
             open.classList.remove("open")
             this.postContent.classList.add("open")
@@ -51,6 +54,8 @@ var PostRenderer = {
         } else {
             this.backlinks.textContent = ""
             this.forwardlinks.textContent = ""
+            this.content.textContent = ""
+            this.related.textContent = ""
             this.postContent.classList.add("hidden")
         }
     },
@@ -61,7 +66,15 @@ var PostRenderer = {
         }, this).filter(function (item) {
             return item && item.uri &&
                 item.uri !== this.post.uris
-        }, this).forEach(function (post) {
+        }, this).reduce(function (memo, item) {
+            if (memo.some(function (otherItem) {
+                return item.title === otherItem.title ||
+                    item.uri === otherItem.uri
+            })) {
+                return memo
+            }
+            return memo.concat([item])
+        }, []).forEach(function (post) {
             template("/client/post.dust", post, function (err, frag) {
                 elem.appendChild(frag)
             })
@@ -73,11 +86,23 @@ module.exports = {
     setup: function () {
         this.domain.on("change", this.handleDomainChange)
         this.domain.posts.on("change", this.handlePostsChange)
+        view1.addEventListener("click", function () {
+            document.body.classList.remove("view2")
+            document.body.classList.add("view1")
+        })
+        view2.addEventListener("click", function () {
+            document.body.classList.remove("view1")
+            document.body.classList.add("view2")
+        })
     },
     greaderNode: document.getElementById("greader"),
     linkingNode: document.getElementById("linking"),
     backlinks: document.getElementById("backlinks"),
     posts: document.getElementById("posts"),
+    view1: document.getElementById("view1"),
+    view2: document.getElementById("view2"),
+    content: document.getElementById("postcontent"),
+    related: document.getElementById("relatedLinks"),
     forwardlinks: document.getElementById("forwardlinks"),
     outer: document.getElementById("outer"),
     blogTitle: document.getElementById("blog-title"),

@@ -6,15 +6,17 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="/css/fyp.css" />
     </head>
-    <body>
+    <body class="view1">
         <div id="linksin"></div>
         <div id="linksout"></div>
         <div id="title">
-            <form id='login'>
+            <div id='login'>
                 <input name='email' placeholder='email' />
                 <input name='password' placeholder='password' />
-                <input type='submit' class='submit' value='Login' />
-            </form>
+                <button class='submit'>Login</button>
+                <button id="view1">View 1</button>
+                <button id="view2">View 2</button>
+            </div>
             <div id="outer">
                 <div>
                     Getting your data from google reader
@@ -33,11 +35,27 @@
                     
                 </ol>
             </div>
+            <div id="content">
+                <h1>Blog post content</h1>
+                <div id="postcontent">
+                </div>
+            </div>
+            <div id="related">
+                <h1>Related links</h1>
+                <ul id="relatedLinks">
+                </ul>
+            </div>
             <div id="links">
-                <ul id="backlinks">
-                </ul>
-                <ul id="forwardlinks">
-                </ul>
+                <div id="backlinksContainer">
+                    <h1>incoming related links</h1>
+                    <ul id="backlinks">
+                    </ul>
+                </div>
+                <div id="forwardLinksContainer">
+                    <h1>outgoing related links</h1>
+                    <ul id="forwardlinks">
+                    </ul>
+                </div>
             </div>
         </div>
         <script src="/js/bundle.js"></script>
