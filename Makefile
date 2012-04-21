@@ -12,4 +12,7 @@ ncore:
 		-o ./src/static/js/bundle.js \
 		./src/modules
 
-.PHONY: build start ncore
+mongo:
+	sudo mongod &
+
+.PHONY: build start ncore run mongo
