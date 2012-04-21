@@ -1,5 +1,5 @@
 var store = require("../util/store"),
-    Posts = require("indexedStore")("Posts")
+    Posts = window.IDBPosts = require("indexedStore")("Posts")
 
 module.exports = {
     init: function () {

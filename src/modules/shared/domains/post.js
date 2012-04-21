@@ -1,7 +1,8 @@
 var pd = require("pd"),
     after = require("after"),
     uuid = require("node-uuid"),
-    observable = require("observable/lib/observable")
+    observable = require("observable/lib/observable"),
+    count = 0
 
 var GetPosts = {
     start: function () {
@@ -62,6 +63,10 @@ var GetPosts = {
             }
             updateProgress()
             
+            count++
+            if (count > 950) {
+                console.log(count)
+            }
             callback(null, {
                 googleId: data.id,
                 id: uuid(),
