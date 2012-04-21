@@ -11,8 +11,8 @@
         <div id="linksout"></div>
         <div id="title">
             <div id='login'>
-                <input name='email' placeholder='email' />
-                <input name='password' placeholder='password' />
+                <input id='email' placeholder='email' />
+                <input id='password' placeholder='password' />
                 <button class='submit'>Login</button>
                 <button id="view1">View 1</button>
                 <button id="view2">View 2</button>

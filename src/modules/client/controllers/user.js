@@ -16,8 +16,8 @@ module.exports = {
         root.addEventListener("click", 
             new DelegateListener(".submit", function (event) {
                 event.preventDefault()
-                var email = root.elements.email.value,
-                    password = root.elements.password.value,
+                var email = document.getElementById("email").value,
+                    password = document.getElementById("password").value,
                     user = {
                         email: email,
                         password: password
