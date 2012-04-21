@@ -65,10 +65,34 @@ a:hover {
 
 #blog li {
     border-top: 1px solid #958677;
+    padding: 5px;
 }
 
 .hidden {
     display: none;
+}
+
+.post:hover {
+    cursor: pointer;
+}
+
+.content {
+    border: 2px solid #13181A;
+    padding: 10px;
+    background-color: #C7A98B;
+    color: #13181A;
+}
+
+.content a {
+    color: #2F4F4F;
+}
+
+.content a:hover {
+    color: #13181A;
+}
+
+#blog .selected {
+    border: 3px solid #958677;
 }
 
 /*
@@ -111,6 +135,7 @@ a:hover {
     left: 0px;
     right: 0px;
     overflow: scroll;
+    padding-right: 8px;
     margin:0px;
 }
 
@@ -122,6 +147,7 @@ a:hover {
     left: 0px;
     right: 0px;
     overflow: scroll;
+    padding-right: 8px;
     margin: 0px;
 }
 
@@ -143,6 +169,7 @@ a:hover {
     width: 147px;
     margin-left:-60px;
     height: 75px;
+
     background-image: url('/linksout.png');
     background-repeat: no-repeat;
 }

@@ -33,6 +33,10 @@ var PostRenderer = {
         self.open = false
 
         template("/client/post.dust", this.post, function (err, frag) {
+            var as = frag.firstChild.getElementsByTagName("a")
+            ;[].forEach.call(as, function (a) {
+                a.target = "_blank"
+            })
             self.posts.appendChild(frag)
             self.postDiv = self.posts.lastElementChild
             self.postDiv.addEventListener("click", self.handleClick)
@@ -50,6 +54,9 @@ var PostRenderer = {
             this.content.appendChild(fragment(this.post.summary))
             open.classList.add("hidden")
             open.classList.remove("open")
+            var selected = By.class("selected")
+            selected.classList.remove("selected")
+            this.postDiv.classList.add("selected")
             this.postContent.classList.add("open")
             this.postContent.classList.remove("hidden")
         } else {
@@ -57,6 +64,7 @@ var PostRenderer = {
             this.forwardlinks.textContent = ""
             this.content.textContent = ""
             this.related.textContent = ""
+            this.postDiv.classList.remove("selected")
             this.postContent.classList.remove("open")
             this.postContent.classList.add("hidden")
         }
@@ -78,6 +86,10 @@ var PostRenderer = {
             return memo.concat([item])
         }, []).forEach(function (post) {
             template("/client/post.dust", post, function (err, frag) {
+                var as = frag.firstChild.getElementsByTagName("a")
+                ;[].forEach.call(as, function (a) {
+                    a.target = "_blank"
+                })
                 elem.appendChild(frag)
             })
         })
