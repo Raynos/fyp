@@ -75,7 +75,8 @@ var PostRenderer = {
             return this.domain.posts.get(uri)
         }, this).filter(function (item) {
             return item && item.uri &&
-                item.uri !== this.post.uris
+                item.uri !== this.post.uri &&
+                item.title !== this.post.title
         }, this).reduce(function (memo, item) {
             if (memo.some(function (otherItem) {
                 return item.title === otherItem.title ||

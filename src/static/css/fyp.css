@@ -79,7 +79,7 @@ a:hover {
 .content {
     border: 2px solid #13181A;
     padding: 10px;
-    background-color: #C7A98B;
+    background-color: #ffffff;
     color: #13181A;
 }
 
@@ -92,7 +92,7 @@ a:hover {
 }
 
 #blog .selected {
-    border: 3px solid #958677;
+    border: 1px solid #958677;
 }
 
 /*
@@ -135,7 +135,7 @@ a:hover {
     left: 0px;
     right: 0px;
     overflow: scroll;
-    padding-right: 8px;
+    padding: 8px;
     margin:0px;
 }
 
@@ -147,7 +147,7 @@ a:hover {
     left: 0px;
     right: 0px;
     overflow: scroll;
-    padding-right: 8px;
+    padding: 8px;
     margin: 0px;
 }
 
