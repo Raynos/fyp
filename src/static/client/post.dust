@@ -1,9 +1,10 @@
 <li class="post"> 
     <h2>
         <span class="date">{date}</span>
-        <a href="{uri}">{title|h}</a>
+        {title}
+        <h5><a href="{uri}" target="_blank">{uri}</a></h4>
     </h2>
-    <div class="content hidden">
+    <div class="content hidden"> 
         {summary|s}
     </div>
 </li>

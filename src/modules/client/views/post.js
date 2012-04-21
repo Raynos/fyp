@@ -3,6 +3,7 @@ var pd = require("pd"),
     dust = require("dustjs-linkedin"),
     By = require("nodecomposite").By,
     fragment = require("fragment"),
+    DelegateListener = require("DelegateListener"),
     cache = {}
 
 var ProgressRenderer = {
@@ -39,13 +40,13 @@ var PostRenderer = {
         })
     },
     handleClick: function () {
-        this.open = !this.open
-        if (this.open) {
+        if (!this.postContent.classList.contains("open")) {
             this.addLinksTo(this.backlinks, this.post.backLinks)
             this.addLinksTo(this.forwardlinks, this.post.forwardLinks)
             this.addLinksTo(this.related, 
                 [].concat(this.post.backLinks, this.post.forwardLinks))
             var open = By.class("open")
+            this.content.textContent = ""
             this.content.appendChild(fragment(this.post.summary))
             open.classList.add("hidden")
             open.classList.remove("open")
@@ -56,6 +57,7 @@ var PostRenderer = {
             this.forwardlinks.textContent = ""
             this.content.textContent = ""
             this.related.textContent = ""
+            this.postContent.classList.remove("open")
             this.postContent.classList.add("hidden")
         }
     },
@@ -94,6 +96,30 @@ module.exports = {
             document.body.classList.remove("view1")
             document.body.classList.add("view2")
         })
+        By.id("relatedLinks")
+            .add(By.id("backlinks"))
+            .add(By.id("forwardlinks"))
+            .addEventListener("click", 
+                new DelegateListener(".post", function (event) {
+                    var items = By.qsa("#posts .post"),
+                        titles = items.map(function (el) {
+                            return {
+                                title: el.firstElementChild.lastChild.data,
+                                el: el
+                            }
+                        }),
+                        self = event.target,
+                        selfTitle = self.firstElementChild.lastChild.data
+
+                    var node = titles.filter(function (stuff) {
+                        return stuff.title === selfTitle
+                    })[0].el
+
+                    var ev = document.createEvent("Event")
+                    ev.initEvent("click", true, true)
+                    node.dispatchEvent(ev)
+                    node.scrollIntoView()
+                }))
     },
     greaderNode: document.getElementById("greader"),
     linkingNode: document.getElementById("linking"),
