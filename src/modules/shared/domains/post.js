@@ -10,6 +10,9 @@ var GetPosts = {
         var cursor = this.collection.find({
             "user.email": this.user.email
         })
+        if (typeof window !== "undefined") {
+            window.Posts = this.collection
+        }
         cursor.toArray(this.checkForResults)    
     },
     checkForResults: error(function (err, results) {

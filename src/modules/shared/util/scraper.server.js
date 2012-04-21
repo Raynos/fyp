@@ -13,7 +13,9 @@ function main(uri, callback) {
     function pipeRequest() {
         var tr = trumpet(),
             error,
-            r = request(uri)
+            r = request({
+                uri: uri
+            })
 
         tr.select("a", extractLink)
         tr.on("end", function () {
