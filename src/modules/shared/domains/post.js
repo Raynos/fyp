@@ -204,8 +204,8 @@ module.exports = pd.extend({}, observable(), {
     },
     setPostData: function (results) {
         results.filter(function stripPostsWithNoLinks(post) {
-            return post.forwardLinks.length > 0 ||
-                post.backLinks.length > 0
+            return post.forwardLinks.length > 1 ||
+                post.backLinks.length > 1
         }).reduce(function makeUnique(memo, item, key, array) {
             if (array.some(function (otherItem) {
                 return otherItem.title === item.title &&
