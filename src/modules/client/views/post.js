@@ -39,7 +39,8 @@ var PostRenderer = {
             })
             self.posts.appendChild(frag)
             self.postDiv = self.posts.lastElementChild
-            self.postDiv.addEventListener("click", self.handleClick)
+            self.postDiv.firstElementChild
+                .addEventListener("click", self.handleClick)
             self.postContent = self.postDiv.getElementsByClassName("content")[0]
         })
     },

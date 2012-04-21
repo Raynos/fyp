@@ -16,6 +16,7 @@ My final year project, google reader meta data visualization
  - blogs should not link to themself (done)
  - selected item border is too wide (done)
  - colors need tweaking (done)
+ - blog post should not close unless clicked on title (done)
 
 
  just so you can say Informal feedback from n users came up with the following suggestions for refinements to the user interface. Most deal with adding clarity to the visual outline of the content, improving the user experience. 
