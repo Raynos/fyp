@@ -49,6 +49,7 @@ var GetPosts = {
         }, this.constructRelatedLinks)
     }),
     transformGoogleData: function (data, callback) {
+        console.log("transformGoogleData")
         var uri = data.alternate[0].href,
             self = this
 

@@ -3,8 +3,12 @@ var dnode = require("dnode"),
     cached,
     callbackList = []
 
-var getRemote = pd.memoize(dnode.connect, dnode)
-getRemote()
+dnode.connect(function (remote) {
+    cached = remote
+    callbackList.forEach(function (cb) {   
+        cb(remote)
+    })
+})
 
 module.exports = function (uri, callback) {
     getRemote(function (remote) {
@@ -12,3 +16,10 @@ module.exports = function (uri, callback) {
     })
 }
 
+function getRemote(callback) {
+    if (cached) {
+        return callback(cached)
+    } else {
+        callbackList.push(callback)
+    }
+}
