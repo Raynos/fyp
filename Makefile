@@ -15,4 +15,11 @@ ncore:
 mongo:
 	sudo mongod &
 
-.PHONY: build start ncore run mongo
+update:
+	git stash
+	git pull origin master
+	npm install
+	make ncore
+	grep "I AM" < out.log
+
+.PHONY: build start ncore run mongo update
