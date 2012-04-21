@@ -1,7 +1,8 @@
 var pd = require("pd"),
     xhr = require("xhr"),
     dust = require("dustjs-linkedin"),
-    By = require("nodecomposite").By,
+    nodecomposite = require("nodecomposite"),
+    By = nodecomposite.By,
     fragment = require("fragment"),
     DelegateListener = require("DelegateListener"),
     cache = {}
@@ -30,9 +31,7 @@ var PostRenderer = {
         self.post.date = (new Date(self.post.publishedTime * 1000))
             .toDateString()
 
-        var d = document.createElement("div")
-        d.innerHTML = self.post.title
-        self.post.title = d.textContent
+        self.post.title = fragment(self.post.title).textContent
             
         self.open = false
 
@@ -56,7 +55,17 @@ var PostRenderer = {
                 [].concat(this.post.backLinks, this.post.forwardLinks))
             var open = By.class("open")
             this.content.textContent = ""
-            this.content.appendChild(fragment(this.post.summary))
+            var frag = fragment(this.post.summary)
+            ;[].forEach.call(frag.childNodes, function (el) {
+                if (el.nodeType !== Node.ELEMENT_NODE) {
+                    return
+                }
+                [].forEach.call(el.getElementsByTagName("a"), function (a) {
+                    a.target = "_blank"
+                })
+            })
+            
+            this.content.appendChild(frag)
             open.classList.add("hidden")
             open.classList.remove("open")
             var selected = By.class("selected")

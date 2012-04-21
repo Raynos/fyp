@@ -17,6 +17,7 @@ My final year project, google reader meta data visualization
  - selected item border is too wide (done)
  - colors need tweaking (done)
  - blog post should not close unless clicked on title (done)
+ - fix issue with some links not opening in new tab (done)
 
 
  just so you can say Informal feedback from n users came up with the following suggestions for refinements to the user interface. Most deal with adding clarity to the visual outline of the content, improving the user experience. 
