@@ -37,6 +37,22 @@ h2 {
     margin-bottom: 2px;
 }
 
+h2 .date {
+    font-size:0.6em;
+    color: #c7a98b;
+    margin-left: 32px;
+    float: right;
+    font-weight: normal;
+}   
+    
+a {
+    color: #f2d3c2;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
 .hidden {
     display: none;
 }
@@ -91,13 +107,6 @@ h2 {
     margin: 0px;
 }
 
-h2 .date {
-    font-size:0.6em;
-    color: #c7a98b;
-    margin-right: 32px;
-    float: left;
-    font-weight: normal;
-}
 
 #blog li {
     border-top: 1px solid #958677;
