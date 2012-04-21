@@ -100,24 +100,12 @@ function template(uri, context, callback) {
         return compile(cache[uri])
     }
 
-    loadWithXHR()
+    loadWithXHR(uri, compileSource)
 
-    function loadWithXHR() {
-        xhr({
-            method: "GET",
-            uri: uri
-        }, function (err, response) {
-            if (this.status === 404) {
-                return callback(new Error("template not found"))
-            }
-            if (err) {
-                return callback(err)
-            }
-            compileSource(response)
-        })
-    }
-
-    function compileSource(source) {
+    function compileSource(err, source) {
+        if (err) {
+            return callback(err)
+        }
         var fn = dust.compileFn(source)
         cache[uri] = fn
 
@@ -133,3 +121,18 @@ function template(uri, context, callback) {
         })
     }
 }
+
+var loadWithXHR = pd.memoize(function loadWithXHR(uri, callback) {
+    xhr({
+        method: "GET",
+        uri: uri
+    }, function (err, response) {
+        if (this.status === 404) {
+            return callback(new Error("template not found"))
+        }
+        if (err) {
+            return callback(err)
+        }
+        callback(null, response)
+    })
+})
