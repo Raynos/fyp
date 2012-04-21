@@ -1,6 +1,7 @@
 var pd = require("pd"),
     xhr = require("xhr"),
     dust = require("dustjs-linkedin"),
+    By = require("nodecomposite").By,
     fragment = require("fragment"),
     cache = {}
 
@@ -23,32 +24,43 @@ var ProgressRenderer = {
 
 var PostRenderer = {
     constructor: function () {
-        var self = this,
-            middlePosts = this.middlePosts = 
-                this.middle.getElementsByClassName("posts")[0]
+        var self = this
+
+        self.post.date = (new Date(self.post.publishedTime * 1000))
+            .toDateString()
             
         self.open = false
 
         template("/client/post.dust", this.post, function (err, frag) {
-            middlePosts.appendChild(frag)
-            self.postDiv = middlePosts.lastElementChild
+            self.posts.appendChild(frag)
+            self.postDiv = self.posts.lastElementChild
             self.postDiv.addEventListener("click", self.handleClick)
+            self.postContent = self.postDiv.getElementsByClassName("content")[0]
         })
     },
     handleClick: function () {
         this.open = !this.open
         if (this.open) {
-            this.addLinksTo(this.left, this.post.backLinks)
-            this.addLinksTo(this.right, this.post.forwardLinks)    
+            this.addLinksTo(this.backlinks, this.post.backLinks)
+            this.addLinksTo(this.forwardlinks, this.post.forwardLinks)
+            var open = By.class("open")
+            open.classList.add("hidden")
+            open.classList.remove("open")
+            this.postContent.classList.add("open")
+            this.postContent.classList.remove("hidden")
         } else {
-            this.left.textContent = ""
-            this.right.textContent = ""
+            this.backlinks.textContent = ""
+            this.forwardlinks.textContent = ""
+            this.postContent.classList.add("hidden")
         }
     },
     addLinksTo: function (elem, links) {
         elem.textContent = ""
         links.map(function (uri) {
             return this.domain.posts.get(uri)
+        }, this).filter(function (item) {
+            return item && item.uri &&
+                item.uri !== this.post.uris
         }, this).forEach(function (post) {
             template("/client/post.dust", post, function (err, frag) {
                 elem.appendChild(frag)
@@ -64,10 +76,11 @@ module.exports = {
     },
     greaderNode: document.getElementById("greader"),
     linkingNode: document.getElementById("linking"),
-    left: document.getElementsByClassName("left")[0],
-    middle: document.getElementsByClassName("middle")[0],
-    right: document.getElementsByClassName("right")[0],
+    backlinks: document.getElementById("backlinks"),
+    posts: document.getElementById("posts"),
+    forwardlinks: document.getElementById("forwardlinks"),
     outer: document.getElementById("outer"),
+    blogTitle: document.getElementById("blog-title"),
     handleDomainChange: function (key, value) {
         pd.bindAll({}, ProgressRenderer, this, {
             observable: value
@@ -75,6 +88,7 @@ module.exports = {
     },
     handlePostsChange: function (key, value) {
         this.outer.hidden = true
+        this.blogTitle.textContent = "Your blog posts from Google Reader"
         pd.bindAll({}, PostRenderer, this, {
             post: value
         }).constructor()

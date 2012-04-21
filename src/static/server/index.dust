@@ -2,36 +2,42 @@
 <html>
     <head>
         <title> FYP </title>
-        <link rel="stylesheet" href="/css/fyp.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/css/fyp.css" />
     </head>
     <body>
-        <form id='login'>
-            <input name='email' placeholder='email' />
-            <input name='password' placeholder='password' />
-            <input type='submit' class='submit' value='Login' />
-        </form>
-        <div id="outer">
-            <div>
-                Getting your data from google reader
-                <progress type="progress" id="greader"></progress>
-            </div>
-            <div>
-                Constructing links
-                <progress type="progress" id="linking"></progress>
+        <div id="linksin"></div>
+        <div id="linksout"></div>
+        <div id="title">
+            <form id='login'>
+                <input name='email' placeholder='email' />
+                <input name='password' placeholder='password' />
+                <input type='submit' class='submit' value='Login' />
+            </form>
+            <div id="outer">
+                <div>
+                    Getting your data from google reader
+                    <progress type="progress" id="greader"></progress>
+                </div>
+                <div>
+                    Constructing links
+                    <progress type="progress" id="linking"></progress>
+                </div>
             </div>
         </div>
-        <div id="ui">
-            <div class="left">
-                <div class="posts">
-                </div>
+        <div>
+            <div id="blog">
+                <h1 id="blog-title">Loading posts from Google Reader</h1>
+                <ol id="posts">
+                    
+                </ol>
             </div>
-            <div class="middle">
-                <div class="posts">
-                </div>
-            </div>
-            <div class="right">
-                <div class="posts">
-                </div>
+            <div id="links">
+                <ul id="backlinks">
+                </ul>
+                <ul id="forwardlinks">
+                </ul>
             </div>
         </div>
         <script src="/js/bundle.js"></script>

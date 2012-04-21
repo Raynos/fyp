@@ -25,6 +25,12 @@ module.exports = {
         dnodeServer.use(function (remote) {
             this.proxyGetLinks = scraper
         })
-        dnodeServer.listen(server)
+        dnodeServer.listen(server, {
+            io: {
+                transport: [
+                    "websocket", "htmlfile", "xhr-polling", "jsonp-polling"
+                ]
+            }
+        })
     }
 }

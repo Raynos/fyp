@@ -1,8 +1,9 @@
-<div class="post">
-    <details>
-        <summary>
-            <a href="{uri}"><h2>{title}</h2></a>
-        </summary>
+<li class="post"> 
+    <h2>
+        <span class="date">{date}</span>
+        <a href="{uri}">{title}</a>
+    </h2>
+    <div class="content hidden">
         {summary|s}
-    </details>
-</div>
+    </div>
+</li>

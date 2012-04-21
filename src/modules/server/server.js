@@ -7,7 +7,7 @@ module.exports = {
         this.dnode.start(server)
     },
     init: function () {
-        var port = process.env.PORT || 8080
+        var port = process.env.FYP_PORT || 8080
         this.server.listen(port)
         console.log("server listening on ", port)
     }

@@ -17,14 +17,22 @@ var GetPosts = {
             /*this.data = results
             this.constructRelatedLinks()*/
             //return this.callback(null, results)
-            return results.filter(function (post) {
-                return post.forwardLinks.length > 2 &&
-                    post.forwardLinks.length < 10
-                    post.backLinks.length > 2 &&
-                    post.backLinks.length < 10
-            }).forEach(function (post) {
+            results.filter(function stripPostsWithNoLinks(post) {
+                return post.forwardLinks.length > 1 ||
+                    post.backLinks.length > 1
+            }).reduce(function makeUnique(memo, item, key, array) {
+                if (array.some(function (otherItem) {
+                    return otherItem.title === item.title &&
+                        otherItem.id !== item.id
+                })) {
+                    return memo
+                }
+                return memo.concat([item])
+            }, []).forEach(function setPosts(post) {
                 this.posts.set(post.uri, post)
             }, this)
+            console.log("doneFiltering")
+            return
         }
         this.getResults()
     }),
