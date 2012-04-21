@@ -8,10 +8,10 @@ module.exports = {
         var user = store.get("user")
 
         Posts.get("posts", function (err, value) {
-            console.log("got from indexeddb", value.length)
             if (value === undefined) {
                 return next()
             }
+            console.log("got from indexeddb", value.length)
             domain.setPostData(value)
         })
 
